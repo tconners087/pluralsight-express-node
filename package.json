@@ -3,17 +3,37 @@
     "version": "1.0.0",
     "description": "Pluralsight Course on Express",
     "scripts": {
-        "start": "node ./app.js"
+        "start": "set DEBUG=app & nodemon ./app.js",
+        "lint": "./node_modules/.bin/eslint"
     },
     "author": "Taylor Conners",
     "license": "MIT",
-    "dependencies": {},
-    "devDependencies": {
-        "bootstrap": "^4.2.1",
+    "dependencies": {
         "chalk": "^2.4.2",
         "debug": "^4.1.1",
+        "ejs": "^2.6.1",
         "express": "^4.16.4",
+        "morgan": "^1.9.1",
+        "pug": "^2.0.3"
+    },
+    "devDependencies": {
+        "bootstrap": "^4.2.1",
+        "eslint": "^5.12.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-plugin-import": "^2.14.0",
         "jquery": "^3.3.1",
-        "morgan": "^1.9.1"
+        "nodemon": "^1.18.9",
+        "popper": "^1.0.1"
+    },
+    "nodemonConfig": {
+        "restartable": "rs",
+        "ignore": [
+            "node_modules/**/node_modules"
+        ],
+        "delay": "2000",
+        "env": {
+            "NODE_ENV": "development",
+            "PORT": 4000
+        }
     }
 }
