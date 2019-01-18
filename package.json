@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Pluralsight Course on Express",
     "scripts": {
-        "start": "set DEBUG=app & nodemon ./app.js",
+        "start": "set DEBUG=app,app:* & nodemon ./app.js",
         "lint": "./node_modules/.bin/eslint"
     },
     "author": "Taylor Conners",
@@ -14,6 +14,7 @@
         "ejs": "^2.6.1",
         "express": "^4.16.4",
         "morgan": "^1.9.1",
+        "mssql": "^4.3.0",
         "pug": "^2.0.3"
     },
     "devDependencies": {
