@@ -27,11 +27,11 @@
     </div>
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
-      <%for(let i = 0; i < nav.length; ++i){%>
+        <%for(let i=0; i<nav.length; i++) {%>
         <li>
           <a href="<%=nav[i].link%>"><%=nav[i].title%></a>
         </li>
-      <%}%>
+        <%}%>
       </ul>
       <ul class="nav navbar-right navbar-nav">
         <li class="dropdown">
@@ -90,6 +90,7 @@
           
           
           <!--/stories-->
+          
             <div class="row">    
             <br>
             <div class="col-md-2 col-sm-3 text-center">
@@ -100,7 +101,6 @@
               <div class="row">
                 <div class="col-xs-9">
                   <h4><span class="label label-default"><%=book.author%></span></h4><h4>
-                  <small style="font-family:courier,'new courier';" class="text-muted">2 hours ago  • 
                   </h4></div>
                 <div class="col-xs-3"></div>
               </div>
