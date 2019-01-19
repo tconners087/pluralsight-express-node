@@ -1,5 +1,6 @@
 const express = require('express');
-// const debug = require('debug')('app:bookRoutes');
+const debug = require('debug')('app:bookRoutes');
+const { MongoClient } = require('mongodb');
 
 const bookRouter = express.Router();
 
@@ -27,14 +28,28 @@ function router(nav) {
 
   bookRouter.route('/')
     .get((req, res) => {
-      res.render(
-        'bookListView',
-        {
-          nav,
-          title: 'Library',
-          books
+      const url = 'mongodb://localhost:27017';
+      const dbName = 'libraryApp';
+      (async function mongo() {
+        let client;
+        try {
+          client = await MongoClient.connect(url);
+          debug('Connected correctly to MongoDB server...');
+
+          const db = client.db(dbName);
+          const response = await db.collection('books');
+          res.render(
+            'bookListView',
+            {
+              nav,
+              title: 'Library',
+              books
+            }
+          );
+        } catch (err) {
+          debug(err.stack);
         }
-      );
+      }());
     });
 
   bookRouter.route('/:id')
