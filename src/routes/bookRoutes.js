@@ -1,31 +1,17 @@
 const express = require('express');
 const debug = require('debug')('app:bookRoutes');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectID } = require('mongodb');
 
 const bookRouter = express.Router();
 
 function router(nav) {
-  const books = [
-    {
-      title: 'The Wind in the Willows',
-      genre: 'Fantasy',
-      author: 'Kenneth Grahame',
-      read: false
-    },
-    {
-      title: 'Life On The Mississippi',
-      genre: 'History',
-      author: 'Mark Twain',
-      read: false
-    },
-    {
-      title: 'Childhood',
-      genre: 'Biography',
-      author: 'Lev Nikolayevich Tolstoy',
-      read: false
+  bookRouter.use((req, res, next) => {
+    if (req.user) {
+      next();
+    } else {
+      res.redirect('/');
     }
-  ];
-
+  });
   bookRouter.route('/')
     .get((req, res) => {
       const url = 'mongodb://localhost:27017';
@@ -37,7 +23,10 @@ function router(nav) {
           debug('Connected correctly to MongoDB server...');
 
           const db = client.db(dbName);
-          const response = await db.collection('books');
+          const collection = await db.collection('books');
+
+          const books = await collection.find().toArray();
+
           res.render(
             'bookListView',
             {
@@ -55,14 +44,32 @@ function router(nav) {
   bookRouter.route('/:id')
     .get((req, res) => {
       const { id } = req.params;
-      res.render(
-        'bookView',
-        {
-          nav,
-          title: 'Library',
-          book: books[id]
+      const url = 'mongodb://localhost:27017';
+      const dbName = 'libraryApp';
+      (async function mongo() {
+        let client;
+        try {
+          client = await MongoClient.connect(url);
+          debug('Connected correctly to MongoDB server...');
+
+          const db = client.db(dbName);
+          const collection = await db.collection('books');
+
+          const book = await collection.findOne({ _id: new ObjectID(id) });
+          debug(book);
+
+          res.render(
+            'bookView',
+            {
+              nav,
+              title: 'Library',
+              book
+            }
+          );
+        } catch (err) {
+          debug(err.stack);
         }
-      );
+      }());
     });
   return bookRouter;
 }
