@@ -30,7 +30,12 @@ app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(expressSession({ secret: 'library' }));
+app.use(expressSession({
+  secret: 'library',
+  name: 'lib_cookie',
+  resave: true,
+  saveUninitialized: true
+}));
 
 require('./src/config/passport.js')(app);
 
