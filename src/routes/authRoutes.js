@@ -1,7 +1,8 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
-const debug = require('debug')('app:authRoutes');
 const passport = require('passport');
+const chalk = require('chalk');
+const debug = require('debug')('app:authRoutes');
 
 const authRouter = express.Router();
 function router(nav) {
@@ -30,6 +31,7 @@ function router(nav) {
         }
       }());
     });
+
   authRouter.route('/profile')
     .all((req, res, next) => {
       if (req.user) {
@@ -39,8 +41,16 @@ function router(nav) {
       }
     })
     .get((req, res) => {
-      res.json(req.user);
+      // res.json(req.user);
+      debug(req.user);
+      res.render('profileView',
+        {
+          nav,
+          title: 'Library Profile',
+          user: req.user
+        });
     });
+
   authRouter.route('/signIn')
     .get((req, res) => {
       res.render('signIn', {
@@ -52,6 +62,17 @@ function router(nav) {
       successRedirect: '/auth/profile',
       failureRedirect: '/'
     }));
+
+  authRouter.route('/logout')
+    .get((req, res) => {
+      if (req.user) {
+        debug(`${chalk.magenta('Logging out user:')} ${chalk.green(req.user.username)}${chalk.magenta('...')}`);
+        req.logout();
+      } else {
+        debug(chalk.magenta('No user registered with session...'));
+      }
+      res.redirect('/');
+    });
   return authRouter;
 }
 

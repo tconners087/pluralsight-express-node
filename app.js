@@ -4,16 +4,22 @@ const debug = require('debug')('app');
 const morgan = require('morgan');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
+
+/*
+  GOODREADS:
+  key: qUm9wyegDxrwxBCTGU2Zyw
+  secret: iQxhbIHswA3R3ofIOw15r5SIWAzqOHhq31MVTirfl0
+*/
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 const nav = [
   { link: '/books', title: 'Book' },
-  { link: '/authors', title: 'Author' }
+  { link: '/authors', title: 'Author' },
+  { link: '/auth/logout', title: 'LogOut' }
 ];
 
 const bookRouter = require('./src/routes/bookRoutes')(nav);
@@ -45,11 +51,7 @@ app.get('/', (req, res) => {
   res.render(
     'index',
     {
-      nav:
-        [
-          { link: '/books', title: 'Books' },
-          { link: '/authors', title: 'Authors' }
-        ],
+      nav,
       title: 'library'
     }
   );
