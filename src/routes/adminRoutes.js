@@ -8,8 +8,11 @@ const adminRouter = express.Router();
 function router(nav) {
   const { getIndex, insertFromArray } = adminController(bookService, nav);
 
-  adminRouter.route('/')
+  adminRouter.route('/insertFromArray')
     .get(insertFromArray);
+
+  adminRouter.route('/')
+    .get(getIndex);
   return adminRouter;
 }
 

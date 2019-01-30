@@ -28,7 +28,13 @@ function adminController(bookService, nav) {
   ];
 
   function getIndex(req, res) {
-    debug(nav);
+    res.render(
+      'adminView',
+      {
+        nav,
+        title: 'Admin'
+      }
+    );
   }
 
   function insertFromArray(req, res) {

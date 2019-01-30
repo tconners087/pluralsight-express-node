@@ -22,6 +22,7 @@ const nav = [
   { link: '/auth/logout', title: 'LogOut' }
 ];
 
+// MUST EXECUTE
 const bookRouter = require('./src/routes/bookRoutes')(nav);
 const adminRouter = require('./src/routes/adminRoutes')(nav);
 const authRouter = require('./src/routes/authRoutes')(nav);
