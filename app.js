@@ -8,6 +8,9 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 
 /*
+  To Study:
+  passport, body-parser, cookie-parser
+
   GOODREADS:
   key: qUm9wyegDxrwxBCTGU2Zyw
   secret: iQxhbIHswA3R3ofIOw15r5SIWAzqOHhq31MVTirfl0
@@ -27,9 +30,13 @@ const bookRouter = require('./src/routes/bookRoutes')(nav);
 const adminRouter = require('./src/routes/adminRoutes')(nav);
 const authRouter = require('./src/routes/authRoutes')(nav);
 
+// Logs useful stuff to console.
 app.use(morgan('tiny'));
+
+// Adds post to req.body? -- read more on this.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(expressSession({
   secret: 'library',
@@ -53,7 +60,7 @@ app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
-  // res.sendFile(path.join(__dirname, '/views/index.html'));
+  // Rendering from ./src/views
   res.render(
     'index',
     {

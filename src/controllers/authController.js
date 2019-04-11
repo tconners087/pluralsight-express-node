@@ -18,7 +18,7 @@ function authController(nav) {
         const col = db.collection('users');
         const user = { username, password };
         const results = await col.insertOne(user);
-        debug(results);
+
         req.login(results.ops[0], () => {
           res.redirect('/auth/profile');
         });
