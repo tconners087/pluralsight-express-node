@@ -1,5 +1,6 @@
-# PS_express_node
-#### Library application using NodeJS and Express.
+# pluralsight-express-node
+
+## Library application using NodeJS and Express.
 
 All code was initially written while following through the Pluralsight.com course "[Building Web Applications with Node.js and Express 4.0 (UPDATE)](https://app.pluralsight.com/profile/author/jonathan-mills)" by [Johnathan Mills](https://www.linkedin.com/in/jonathanfmills). 
 
