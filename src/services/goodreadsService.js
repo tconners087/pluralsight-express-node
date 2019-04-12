@@ -2,6 +2,8 @@ const axios = require('axios');
 const xml2js = require('xml2js');
 const debug = require('debug')('app:goodreadsService');
 
+// https://www.goodreads.com/book/show/656.xml?key=qUm9wyegDxrwxBCTGU2Zyw
+
 const parser = xml2js.Parser({ explicitArray: false });
 function goodreadsService() {
   const tConnDevKey = 'qUm9wyegDxrwxBCTGU2Zyw';
@@ -13,6 +15,7 @@ function goodreadsService() {
             if (err) {
               debug(err);
             } else {
+              // debug(result.GoodreadsResponse.book);
               resolve(result.GoodreadsResponse.book);
             }
           });
